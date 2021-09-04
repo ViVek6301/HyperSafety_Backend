@@ -8,15 +8,19 @@ const fileFilter = ImageUpload.fileFilter;
 const upload = ImageUpload.upload;
 router = express.Router();
 
-// ADDING A NEW EMPLOYEE
 router
+
+// Adding New Employee with Image.
 .post("/", upload.single('employeeImage'), (req, res) => {
     fs.renameSync(req.file.path, req.file.path.replace('temp', req.body.name + "_" + req.body.id + path.extname(req.file.originalname)));
     res.send("perfectly working!!!");
 })
+
+// Deleting Employee by deleting their Image.
 .delete("/", (req, res) => {
-    // req.body.name and req.body.id
+
     var fileName = req.body.name + "_" + req.body.id;
+
     if (fs.existsSync("./images/" + fileName + ".jpg")) {
         fileName += ".jpg";
     }
@@ -24,10 +28,13 @@ router
         fileName += ".png";
     }
     else {
-        console.log(fileName);
+        // console.log(fileName);
         throw new Error("Image not found - Check the details.");
     }
+
+    // Delete Employee Image.
     fs.unlink("./images/" + fileName, (err) => {
+        
         if (err) {
             throw new Error("File could not be deleted.");
         }
@@ -35,7 +42,4 @@ router
     });
 });
 
-
-
 module.exports = router;
-

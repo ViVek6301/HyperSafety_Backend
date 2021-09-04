@@ -2,4 +2,4 @@
 First navigate to the folder and run
 npm install
 Then run the command
-nodemon Employee_Management_Server
+npm run Employee_Management_Server

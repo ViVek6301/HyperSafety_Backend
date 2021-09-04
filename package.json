@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node Employee_Management_Server",
-    "Management_Server": "nodemon Employee_Management_Server"
+    "Employee_Management_Server": "nodemon Employee_Management_Server"
   },
   "author": "",
   "license": "ISC",
