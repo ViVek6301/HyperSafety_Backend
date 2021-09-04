@@ -3,23 +3,21 @@ const ImageUpload = require("../Utilities/ImageUpload");
 const fs = require("fs");
 const path = require("path");
 
-const storage = ImageUpload.storage;
-const fileFilter = ImageUpload.fileFilter;
 const upload = ImageUpload.upload;
 router = express.Router();
 
 router
-
 // Adding New Employee with Image.
-.post("/", upload.single('employeeImage'), (req, res) => {
-    fs.renameSync(req.file.path, req.file.path.replace('temp', req.body.name + "_" + req.body.id + path.extname(req.file.originalname)));
+.post("/", upload.single('employee_image'), (req, res) => {
+    fs.renameSync(req.file.path, req.file.path.replace('temp', req.body.empName 
+                    + "_" + req.body.empId + path.extname(req.file.originalname)));
     res.send("Employee Image Added Successfully");
 })
 
 // Deleting Employee by deleting their Image.
 .delete("/", (req, res) => {
 
-    var fileName = req.body.name + "_" + req.body.id;
+    var fileName = req.body.empName + "_" + req.body.empId;
 
     if (fs.existsSync("./images/" + fileName + ".jpg")) {
         fileName += ".jpg";
