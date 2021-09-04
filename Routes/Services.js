@@ -13,7 +13,7 @@ router
 // Adding New Employee with Image.
 .post("/", upload.single('employeeImage'), (req, res) => {
     fs.renameSync(req.file.path, req.file.path.replace('temp', req.body.name + "_" + req.body.id + path.extname(req.file.originalname)));
-    res.send("perfectly working!!!");
+    res.send("Employee Image Added Successfully");
 })
 
 // Deleting Employee by deleting their Image.

@@ -5,7 +5,7 @@ const Services = require('./Routes/Services');
 var app = express();
 app.listen(7091);
 
-console.log("Server up...");
+console.log("Employee Management Server is Running...");
 
 app.use(bodyParser.json());
 
