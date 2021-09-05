@@ -90,6 +90,30 @@ router
                 res.end("Record Reset Successfully.");
             }
         });
+    })
+
+    .get("/", (req, res, next) => {
+        const getEmployeesQuery = "SELECT EmployeeID, EmployeeName, Warnings FROM Employees";
+        sqlConnection.query(getEmployeesQuery, (error, results, fields) => {
+            if (error) {
+                next(new Error("Error - Try Again."));
+                return;
+            }
+            res.setHeader("Content-Type", "application/json");
+            res.json(results);
+        });
+    })
+    
+    .get("/:warnings", (req, res, next) => {
+        const getEmployeesQuery = "SELECT EmployeeID, EmployeeName, Warnings FROM Employees WHERE Warnings >= " + req.params.warnings;
+        sqlConnection.query(getEmployeesQuery, (error, results, fields) => {
+            if (error) {
+                next(new Error("Error - Try Again."));
+                return;
+            }
+            res.setHeader("Content-Type", "application/json");
+            res.json(results);
+        });
     });
 
 module.exports = router;
