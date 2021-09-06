@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node Employee_Management_Server",
-    "Employee_Management_Server": "nodemon Employee_Management_Server"
+    "start": "node HR_Tech_Solutions_Server",
+    "HR_Tech_Solutions_Server": "nodemon HR_Tech_Solutions_Server"
   },
   "author": "",
   "license": "ISC",

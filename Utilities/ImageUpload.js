@@ -6,7 +6,6 @@ const storage = multer.diskStorage({
       cb(null, './images/');
     },
     filename: function(req, file, cb) {
-      console.log(req.body);
       cb(null, 'temp');
     }
 });
@@ -18,7 +17,6 @@ const fileFilter = (req, file, cb) => {
     if (file_ext === '.jpeg' || file_ext === '.png' || file_ext === '.jpg') {
         cb(null, true);
     } else {
-        console.log("File ext :" + file_ext);
         cb(new Error("File type is unsupported."), false);
     }
 };
