@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const Services = require('./Routes/Services');
+const EmployeeServices = require('./Routes/Employee_Services');
+const AdminServices = require("./Routes/Admin_Services");
 const connection = require("./models/db");
 
 var app = express();
@@ -10,7 +11,8 @@ console.log("Employee Management Server is Running...");
 
 app.use(bodyParser.json());
 
-app.use('/api/employee_services', Services);
+app.use('/api/employee_services', EmployeeServices);
+app.use('/api/admin_services', AdminServices);
 
 app.use((err, req, res, next) => {
     console.log(err);
