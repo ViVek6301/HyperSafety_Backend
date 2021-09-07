@@ -55,7 +55,7 @@ router
                         },
                             process.env.JWT_SECRET,
                         {
-                            expiresIn: '1h'
+                            expiresIn: '5s'
                         });
                         res.status(200).json({
                             message: 'Login Successful!',
