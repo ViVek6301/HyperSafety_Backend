@@ -3,13 +3,14 @@ const ImageUpload = require("../Utilities/ImageUpload");
 const fs = require("fs");
 const path = require("path");
 const sqlConnection = require("../models/db");
+const auth = require("../Utilities/auth");
 
 const upload = ImageUpload.upload;
 router = express.Router();
 
 router
     // Adding New Employee with Image.
-    .post("/", upload.single('employee_image'), (req, res, next) => { // expecting image(employee_image), empId and empName as fields
+    .post("/", auth.verifyToken ,upload.single('employee_image'), (req, res, next) => { // expecting image(employee_image), empId and empName as fields
         const checkEmployeeQuery = "SELECT 1 FROM Employees WHERE EmployeeId = \'" + req.body.empId + "\';";
         sqlConnection.query(checkEmployeeQuery, (error, results, fields) => {
             if (error) {
@@ -36,7 +37,7 @@ router
     })
 
     // Deleting Employee by deleting their Image.
-    .delete("/", (req, res, next) => { // expecting empId and empName as fieldss
+    .delete("/", auth.verifyToken,(req, res, next) => { // expecting empId and empName as fieldss
 
         var fileName = req.body.empName + "_" + req.body.empId;
         var imageFound = true;
@@ -74,7 +75,7 @@ router
         });
     })
 
-    .put("/", (req, res, next) => {
+    .put("/", auth.verifyToken, (req, res, next) => {
         const resetRecordQuery = "UPDATE Employees SET Warnings = 0 WHERE EmployeeID = \'" + req.body.empId 
                                 + "\' AND EmployeeName = \'" + req.body.empName + "\'";
         sqlConnection.query(resetRecordQuery, (error, results, fields) => {
@@ -92,7 +93,7 @@ router
         });
     })
 
-    .get("/", (req, res, next) => {
+    .get("/", auth.verifyToken, (req, res, next) => {
         const getEmployeesQuery = "SELECT EmployeeID, EmployeeName, Warnings FROM Employees";
         sqlConnection.query(getEmployeesQuery, (error, results, fields) => {
             if (error) {
@@ -104,7 +105,7 @@ router
         });
     })
     
-    .get("/:warnings", (req, res, next) => {
+    .get("/:warnings", auth.verifyToken, (req, res, next) => {
         const getEmployeesQuery = "SELECT EmployeeID, EmployeeName, Warnings FROM Employees WHERE Warnings >= " + req.params.warnings;
         sqlConnection.query(getEmployeesQuery, (error, results, fields) => {
             if (error) {
