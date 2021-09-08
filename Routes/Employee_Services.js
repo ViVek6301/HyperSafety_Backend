@@ -10,7 +10,7 @@ router = express.Router();
 
 router
     // Adding New Employee with Image.
-    .post("/", auth.verifyToken ,upload.single('employee_image'), (req, res, next) => { // expecting image(employee_image), empId and empName as fields
+    .post("/", auth.verifyToken, upload.single('employee_image'), (req, res, next) => { // expecting image(employee_image), empId and empName as fields
         const checkEmployeeQuery = "SELECT 1 FROM Employees WHERE EmployeeId = \'" + req.body.empId + "\';";
         sqlConnection.query(checkEmployeeQuery, (error, results, fields) => {
             if (error) {
@@ -19,14 +19,14 @@ router
             }
             if (results.length == 0) {
                 const createEmployeeQuery = "INSERT INTO Employees(EmployeeName, EmployeeId) " +
-                                            "VALUES (\'" + req.body.empName + "\',\'" + req.body.empId + "\');";
+                    "VALUES (\'" + req.body.empName + "\',\'" + req.body.empId + "\');";
                 sqlConnection.query(createEmployeeQuery, (error, results, fields) => {
                     if (error) {
                         throw error;
                     }
                     // console.log(results);
                     fs.renameSync(req.file.path, req.file.path.replace('temp', req.body.empName
-                                  + "_" + req.body.empId + path.extname(req.file.originalname)));
+                        + "_" + req.body.empId + path.extname(req.file.originalname)));
                     res.end("Employee Added Successfully");
                 });
             }
@@ -37,7 +37,7 @@ router
     })
 
     // Deleting Employee by deleting their Image.
-    .delete("/", auth.verifyToken,(req, res, next) => { // expecting empId and empName as fieldss
+    .delete("/", auth.verifyToken, (req, res, next) => { // expecting empId and empName as fieldss
 
         var fileName = req.body.empName + "_" + req.body.empId;
         var imageFound = true;
@@ -51,8 +51,8 @@ router
             imageFound = false;
         }
 
-        const deleteEmployeeQuery = "DELETE FROM Employees WHERE EmployeeId=\'" + req.body.empId 
-                                    + "\' AND EmployeeName=\'" + req.body.empName + "\'";
+        const deleteEmployeeQuery = "DELETE FROM Employees WHERE EmployeeId=\'" + req.body.empId
+            + "\' AND EmployeeName=\'" + req.body.empName + "\'";
         sqlConnection.query(deleteEmployeeQuery, (error, results, fields) => {
             if (error) {
                 next(new Error("Error - Try Again."));
@@ -61,7 +61,7 @@ router
             var affectedRows = results.affectedRows;
             if (affectedRows === 0) {
                 next(new Error("Employee Not Found."));
-            } 
+            }
             else {
                 if (imageFound) {
                     fs.unlink("./images/" + fileName, (err) => {
@@ -76,8 +76,8 @@ router
     })
 
     .put("/", auth.verifyToken, (req, res, next) => {
-        const resetRecordQuery = "UPDATE Employees SET Warnings = 0 WHERE EmployeeID = \'" + req.body.empId 
-                                + "\' AND EmployeeName = \'" + req.body.empName + "\'";
+        const resetRecordQuery = "UPDATE Employees SET Warnings = 0 WHERE EmployeeID = \'" + req.body.empId
+            + "\' AND EmployeeName = \'" + req.body.empName + "\'";
         sqlConnection.query(resetRecordQuery, (error, results, fields) => {
             if (error) {
                 next(new Error("Error - Try Again."));
@@ -104,10 +104,25 @@ router
             res.json(results);
         });
     })
-    
+
     .get("/:warnings", auth.verifyToken, (req, res, next) => {
         const getEmployeesQuery = "SELECT EmployeeID, EmployeeName, Warnings FROM Employees WHERE Warnings >= " + req.params.warnings;
         sqlConnection.query(getEmployeesQuery, (error, results, fields) => {
+            if (error) {
+                next(new Error("Error - Try Again."));
+                return;
+            }
+            res.setHeader("Content-Type", "application/json");
+            res.json(results);
+        });
+    })
+
+    .get("/:empId/:empName", (req, res, next) => {
+        const getEmployeesQuery = "SELECT Warnings FROM Employees WHERE EmployeeID = \""
+            + req.params.empId + "\" and EmployeeName = \"" + req.params.empName + "\"";
+        sqlConnection.query(getEmployeesQuery, (error, results, fields) => {
+            console.log(getEmployeesQuery);
+            console.log(results);
             if (error) {
                 next(new Error("Error - Try Again."));
                 return;
