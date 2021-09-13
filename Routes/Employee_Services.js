@@ -118,7 +118,7 @@ router
     })
 
     .get("/:empId/:empName", (req, res, next) => {
-        const getEmployeesQuery = "SELECT Warnings FROM Employees WHERE EmployeeID = \""
+        const getEmployeesQuery = "SELECT * FROM Employees WHERE EmployeeID = \""
             + req.params.empId + "\" and EmployeeName = \"" + req.params.empName + "\"";
         sqlConnection.query(getEmployeesQuery, (error, results, fields) => {
             console.log(getEmployeesQuery);
