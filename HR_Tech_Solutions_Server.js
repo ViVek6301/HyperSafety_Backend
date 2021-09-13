@@ -7,6 +7,7 @@ const morgan = require("morgan");
 
 var app = express();
 app.listen(7091);
+// console.log(server.address().address);
 
 console.log("Employee Management Server is Running...");
 

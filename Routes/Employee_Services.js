@@ -50,7 +50,6 @@ router
         else {
             imageFound = false;
         }
-
         const deleteEmployeeQuery = "DELETE FROM Employees WHERE EmployeeId=\'" + req.body.empId
             + "\' AND EmployeeName=\'" + req.body.empName + "\'";
         sqlConnection.query(deleteEmployeeQuery, (error, results, fields) => {
@@ -118,8 +117,8 @@ router
     })
 
     .get("/:empId/:empName", (req, res, next) => {
-        const getEmployeesQuery = "SELECT * FROM Employees WHERE EmployeeID = \""
-            + req.params.empId + "\" and EmployeeName = \"" + req.params.empName + "\"";
+        const getEmployeesQuery = "SELECT * FROM Employees WHERE binary `EmployeeID` = \""
+            + req.params.empId + "\" and binary `EmployeeName` = \"" + req.params.empName + "\"";
         sqlConnection.query(getEmployeesQuery, (error, results, fields) => {
             console.log(getEmployeesQuery);
             console.log(results);
