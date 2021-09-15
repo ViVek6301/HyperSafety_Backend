@@ -1,12 +1,12 @@
 {
-  "name": "hrtechsolutionsserver",
+  "name": "hypersafetybackend",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node HR_Tech_Solutions_Server",
-    "HR_Tech_Solutions_Server": "nodemon HR_Tech_Solutions_Server"
+    "start": "node HyperSafety_Server",
+    "HyperSafety_Server": "nodemon HyperSafety_Server"
   },
   "author": "",
   "license": "ISC",
