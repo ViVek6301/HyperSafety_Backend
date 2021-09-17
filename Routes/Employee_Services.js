@@ -49,7 +49,8 @@ router
                     }
                     fs.unlink("./images/" + fileName, (err) => {
                         if (err) {
-                            throw new Error("Error - Try Again.");
+                            next(new Error("Error - Try Again."));
+                            return;
                         }
                     });
                     const createEmployeeQuery = "INSERT INTO Employees(EmployeeName, EmployeeId, ImageID, ImageURL) " +
@@ -57,7 +58,8 @@ router
                         + "\',\'" + imgurUploadResponse.data.link + "\');";
                     sqlConnection.query(createEmployeeQuery, (error, results, fields) => {
                         if (error) {
-                            throw error;
+                            next(new Error("Error - Try Again."));
+                            return;
                         }
                         res.end("Employee Added Successfully");
                     });
