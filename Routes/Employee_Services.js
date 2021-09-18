@@ -5,6 +5,7 @@ const path = require("path");
 const sqlConnection = require("../models/db");
 const request = require("request");
 const auth = require("../Utilities/auth");
+const python_connection_socket = require("../Routes/Socket");
 require('dotenv').config();
 
 const upload = ImageUpload.upload;
@@ -33,7 +34,6 @@ router
                         "album": process.env.IMGUR_ALBUM_ID,
                         "type": "file"
                     }
-                    // 'maxRedirects': 20
                 };
 
                 request(imgurUploadRequest, function (error, response) {
@@ -61,7 +61,8 @@ router
                             next(new Error("Error - Try Again."));
                             return;
                         }
-                        res.end("Employee Added Successfully");
+                        python_connection_socket.emit("Employee Added Successfully.", {"empID" : req.body.empID, "imageURL" : imgurUploadResponse.data.link});
+                        res.end("Employee Added Successfully.");
                     });
                 });
 
@@ -100,8 +101,7 @@ router
                         'url': 'https://api.imgur.com/3/image/' + imageID,
                         'headers': {
                             'Authorization': 'Bearer ' + process.env.IMGUR_ACCESS_TOKEN
-                        }
-                        // 'maxRedirects': 20
+                        },
                     };
                 
                     request(imgurDeleteRequest, function(error, response) {
@@ -117,6 +117,7 @@ router
                             res.status(imgurDeleteResponse.status).send(imgurDeleteResponse.data.error);
                             return;
                         }
+                        python_connection_socket.emit("Employee Successfully Deleted.", {"empID" : req.body.empID});
                         res.send("Employee Successfully Deleted.");
                     });
 

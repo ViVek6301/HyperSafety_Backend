@@ -7,7 +7,7 @@ const connection = require("./models/db");
 const morgan = require("morgan");
 
 var app = express();
-app.listen(7091);
+app.listen(7090);
 // console.log(server.address().address);
 
 console.log("Employee Management Server is Running...");
@@ -17,7 +17,6 @@ app.use(morgan('combined'));
 
 app.use('/api/employee_services', EmployeeServices);
 app.use('/api/admin_services', AdminServices);
-
 app.use("/api/ping", Ping);
 
 app.use((err, req, res, next) => {
