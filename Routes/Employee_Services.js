@@ -6,6 +6,7 @@ const sqlConnection = require("../models/db");
 const request = require("request");
 const auth = require("../Utilities/auth");
 const python_connection_socket = require("../Routes/Socket");
+const imgurConfig = require("../config/imgur_config.json");
 require('dotenv').config();
 
 const upload = ImageUpload.upload;
@@ -27,7 +28,7 @@ router
                     'method': 'POST',
                     'url': 'https://api.imgur.com/3/image',
                     'headers': {
-                        'Authorization': 'Bearer ' + process.env.IMGUR_ACCESS_TOKEN
+                        'Authorization': 'Bearer ' + imgurConfig.access_token
                     },
                     formData: {
                         "image": fs.createReadStream("./images/" + fileName),
@@ -100,7 +101,7 @@ router
                         'method': 'DELETE',
                         'url': 'https://api.imgur.com/3/image/' + imageID,
                         'headers': {
-                            'Authorization': 'Bearer ' + process.env.IMGUR_ACCESS_TOKEN
+                            'Authorization': 'Bearer ' + imgurConfig.access_token
                         },
                     };
                 

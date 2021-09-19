@@ -3,12 +3,13 @@ const bodyParser = require("body-parser");
 const EmployeeServices = require('./Routes/Employee_Services');
 const AdminServices = require("./Routes/Admin_Services");
 const Ping = require("./Routes/Ping");
-const connection = require("./models/db");
 const morgan = require("morgan");
+const checkImgurAccessToken = require("./Utilities/updateImgurAccessToken");
 
 var app = express();
 app.listen(7090);
-// console.log(server.address().address);
+
+checkImgurAccessToken.checkImgurAccessToken();
 
 console.log("Employee Management Server is Running...");
 
