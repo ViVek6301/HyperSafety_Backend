@@ -1,7 +1,7 @@
 # HYPERSAFETY BACKEND
 <img src="https://i.imgur.com/Elsibol.png" align="right" height="130px" width="130px" />
 
-The NodeJS Backend of the [HyperSafety Frontend](https://github.com/ritviksharma4/HyperSafety) and the [HyperSafety ML Service](https://github.com/ritviksharma4/HyperSafety_Service), an Employee Management Project in which images and details of Employees can be uploaded, which would then be used to detect whether or not Employees are wearing a mask in the Workplace. The [HyperSafety Frontend](https://github.com/ritviksharma4/HyperSafety) can then be used by the Higher-ups to check which Employees have been caught without a mask.
+The NodeJS Backend of the [HyperSafety Frontend](https://github.com/ritviksharma4/HyperSafety_Frontend) and the [HyperSafety ML Service](https://github.com/ritviksharma4/HyperSafety_Service), an Employee Management Project in which images and details of Employees can be uploaded, which would then be used to detect whether or not Employees are wearing a mask in the Workplace. The [HyperSafety Frontend](https://github.com/ritviksharma4/HyperSafety_Frontend) can then be used by the Higher-ups to check which Employees have been caught without a mask.
 
 ## INSTALLATION
 To run the Backend, first make sure you have NodeJS, NPM and MySQL installed.
