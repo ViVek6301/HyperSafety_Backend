@@ -57,7 +57,7 @@ IMGUR_CLIENT_SECRET=YOUR_IMGUR_CLIENT_SECRET
 
 ### Refer to the [Imgur API Docs](https://apidocs.imgur.com/) to create an account and generate an access token.
 
-## Finally, to start the server, navigate to the root directory of the project and run:
+## Finally, to start the server, navigate to the root directory of the project and run the command:
 ```
 npm run HyperSafety_Server
 ```
